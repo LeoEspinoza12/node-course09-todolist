@@ -1,0 +1,79 @@
+<div class="container parts done-list">
+  <ul class="list-group done-list-group">
+    <h4 class="list-header">Accomplished</h4>
+    <li href="#" class="list-group-item waves-effect">
+      <div class="done-list-p">
+        <p>Love is a fire. But whether it is going to warm your heart</p>
+      </div>
+      <div class="done-list-input">
+        <p class="finished-time">3:30pm</p>
+        <input class="btn btn-primary btn-xs pull-right" type="button" value="Change">
+      </div>
+    </li>
+
+    <li href="#" class="list-group-item waves-effect">
+      <div class="done-list-p">
+        <p>If you wait too long for the perfect moment, the perfect moment will pass you by the quick brown fox jumps over
+          the lazy dog and the manis walking.</p>
+      </div>
+      <div class="done-list-input">
+        <p class="finished-time">3:30pm</p>
+        <input class="btn btn-primary btn-xs pull-right" type="button" value="Change">
+      </div>
+    </li>
+
+    <li href="#" class="list-group-item waves-effect">
+      <div class="done-list-p">
+        <p>If you wait too long for the perfect moment, the perfect moment will pass you by.</p>
+      </div>
+      <div class="done-list-input">
+        <p class="finished-time">3:30pm</p>
+        <input class="btn btn-primary btn-xs pull-right" type="button" value="Change">
+      </div>
+    </li>
+
+    <li href="#" class="list-group-item waves-effect">
+      <div class="done-list-p">
+        <p>A man can fail many times, but he isn't a failure until he begins to blame somebody else.</p>
+      </div>
+      <div class="done-list-input">
+        <p class="finished-time">3:30pm</p>
+        <input class="btn btn-primary btn-xs pull-right" type="button" value="Change">
+      </div>
+    </li>
+
+  </ul>
+</div>
+
+
+
+
+
+</div>
+<div class="col-md-6">
+  <div class="container all-list ">
+
+    <ul class="list-group">
+
+      <h4 class="list-header">To do list</h4>
+     
+          {{#each lists}}
+      <li class="list-group-item list-group-item-success actv-list1">
+        <div class="actv-list">
+
+          <p class="list-text">{{todolist}}</p>
+
+          <div class="actv-side">
+            <p class="list-time">3:30pm</p>
+            <input class="btn btn-primary btn-xs" type="button" value="Edit">
+            <input class="btn btn-danger btn-xs pull-right" type="button" value="Delete">
+          </div>
+        </div>
+      </li>
+          {{/each}}
+
+
+    </ul>
+
+  </div>
+</div>
