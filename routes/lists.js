@@ -17,56 +17,123 @@ listsRouter.all('/*', (req, res, next) => {
 
 listsRouter.route('/')
 .get((req, res, next) => {
-  // // res.send('<h1>This is the Index GET</h1>')
-  res.render('lists/index', {'text': 'sample'})
+   var todos = [];
+   var doneList = [];
+  ToDoList.find({})
+    .then((lists) => {
+      lists.forEach((list) => {
+        if (list.status == 'done') {
+          doneList.push(list)
+        } else {
+          todos.push(list)
+        }
+      })
+      res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/html')
+          res.render('lists/index', {lists: todos, done: doneList})
+    }, (err) => next(err))
+    .catch((err) => next(err))
 })
 .post((req, res, next) => {
+  var todos = [];
+  var doneList = [];
+
     ToDoList.create(req.body)
       .then((toDo) => {
         if (toDo) {
           ToDoList.find({})
             .then((lists) => {
-              // lists.forEach( (list) => {
-              //   console.log(`this is the lists: ${list.todolist}`);
-                res.render('lists/sample', {lists: lists})
-
+              lists.forEach((list) => {
+                if (list.status == 'done') {
+                  doneList.push(list)
+                } else {
+                  todos.push(list)
+                }
+              })
+                res.statusCode = 200;
+                  res.setHeader('Content-Type', 'text/html')
+                    res.render('lists/index', {lists: todos, done: doneList})
             })
         }
       console.log(`You have entered new list ${toDo}`)
-    });
-
+    }, (err) => next(err))
+    .catch((err) => next(err));
 })
-  
-
-
-
 .put((req, res, next) => {
-  // res.send('<h1>This is the Index PUT</h1>')
-  // res.render('lists/edit', {'text': 'sample'})
+  res.statusCode = 403;
+    res.end('PUT Operation is not supported');
 })
 .delete((req, res, next) => {
-  // res.send('<h1>This is the Index DELETE</h1>')
-  // res.render('lists/index', {'text': 'sample'})
+  res.statusCode = 403;
+    res.end('DELETE Operation is not supported')
 })
 
 
-// listsRouter.route('/:id')
-//   .get((req, res, next) => {
-//     // res.send('<h1>This is the Index ID GET</h1>')
-//     // res.render('lists/error', {'text': 'Your are not allowed for GET ID'})
-//   })
-//   .post((req, res, next) => {
-//     // res.send('<h1>This is the Index ID POST</h1>')
-//     // res.render('lists/error', {'text': 'Your are not allowed for POST ID'})
-//   })
-//   .put((req, res, next) => {
-//     // res.send('<h1>This is the Index ID PUT</h1>')
-//     // res.render('lists/edit', {'text': 'sample'})
-//   })
-//   .delete((req, res, next) => {
-//     // res.send('<h1>This is the Index ID DELETE</h1>')
-//     // res.render('lists/index', {'text': 'sample'})
-//   })
+
+
+/////////////////////////////////////////////////////////
+listsRouter.get('/edit:_id', (req, res, next) => {
+     var todos = [];
+     var doneList = [];
+    var editlist = [];
+  ToDoList.find({})
+    .then((lists) => {
+      lists.forEach((list) => {
+        if(list._id == req.params._id) {
+          editlist.push(list)
+        } else if (list.status == 'done') {
+          doneList.push(list)
+        } else {
+          todos.push(list)
+        }
+      })
+      res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/html')
+          res.render('lists/edit', {lists: todos, done: doneList, edit: editlist})
+  }, (err) => next(err))
+    .catch((err) => next(err))
+})
+
+listsRouter.post('/edit', (req, res, next) => {
+  var todos = [];
+    var doneList = [];
+  ToDoList.findById(req.body._id)
+  .then((list) => {
+    console.log(list)
+      list.todolist = req.body.todolist;
+      list.status = req.body.status;
+      list.save()
+        .then((newlist) => {
+          ToDoList.find({})
+            .then((lists) => {
+              lists.forEach((list) => {
+                if (list.status == 'done') {
+                  doneList.push(list)
+                } else {
+                  todos.push(list)
+                }
+              })
+              res.statusCode = 200;
+                res.setHeader('Content-Type', 'text/html')
+                res.render('lists/index', { lists: todos, done: doneList })
+            })
+        })
+    }, (err) => next(err))
+    .catch((err) => next(err))
+})
+
+listsRouter.post('/:id', (req, res, next) => {
+  ToDoList.findByIdAndRemove(req.params.id)
+    .then((resp) => {
+      console.log(`response after delete: ${resp}`);
+        res.statusCode = 200;
+          res.setHeader('Content-Type', 'text/html');
+            res.redirect('/')
+    }, (err) => next(err))
+      .catch((err) => next(err))
+})
+
+
 
 
 

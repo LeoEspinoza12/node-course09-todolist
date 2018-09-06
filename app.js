@@ -16,15 +16,11 @@ const connect = mongoose.connect('mongodb://localhost:27017/toDo', { useNewUrlPa
 
 var app = express();
 
+
+const {generateTime, alertThis} = require('./helpers/handlebars-helpers')
+
 // view engine setup
-app.engine('hbs', hbs({
-  extname: 'hbs',
-  defaultLayout: 'list',
-  layoutsDir: __dirname + '/views/layouts/',
-  // helpers: {
-  //   // equal: equal
-  // }
-}));
+app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'list', layoutsDir: __dirname + '/views/layouts/', helpers: {generateTime: generateTime, alertThis: alertThis}}));
 app.set('view engine', 'hbs');
 
 app.use(logger('dev'));

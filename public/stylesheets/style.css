@@ -175,6 +175,13 @@ button {
   text-align: center
 }
 
+.done-list-input button {
+  width: 100%;
+  margin-top: 0;
+  box-shadow: 2px 2px 2px gray
+
+}
+
 /* main list styles */
 /* ////////////////////////////////////////////// */
 .all-list {
@@ -186,7 +193,17 @@ button {
   height: 72px;
   margin-top: 5px;
   box-shadow: 2px 2px gray;
+  /* background: #ffacac; */
 }
+
+.pending{
+  background: #dff0d8;
+}
+
+.urgent {
+  background: #ffacac;
+}
+
 
 .list-text {
   padding: 2px 2px 2px 5px;
@@ -201,7 +218,7 @@ button {
 .actv-side {
   margin: 0;
   width: 20%;
-  float: right
+  float: right;
 }
 
 .actv-side p {
@@ -217,14 +234,25 @@ button {
   text-align: center
 }
 
-.actv-side input[value="Edit"] {
-  width: 50px;
-  margin-top: -12px
+.actv-side a,
+.actv-side button {
+  width: 45px;
+  margin-top: -12px;
+  box-shadow: 2px 2px 2px gray
 }
 
-.actv-side input {
-  margin-top: -5px
+/* .actv-side input, .actv-side button {
+  margin-top: -5px;
+  
+} */
+
+
+.actv-side button {
+  margin-top: -25px;
+  box-shadow: none;
+  box-shadow: 2px 2px 2px gray
 }
+
 
 /* edit form styles */
 /* ////////////////////////////////////////////// */
@@ -252,5 +280,7 @@ button {
 .edit-form input {
   margin: 5px 10px 0 0;
   font-size: 13px;
-  padding: 3px 7px
+  padding: 3px 7px;
+  font-family: play;
+  box-shadow: 2px 2px 2px gray
 }

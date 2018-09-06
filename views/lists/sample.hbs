@@ -58,13 +58,13 @@
       <h4 class="list-header">To do list</h4>
      
           {{#each lists}}
-      <li class="list-group-item list-group-item-success actv-list1">
+      <li class="list-group-item list-group-item-success actv-list1 {{status}}">
         <div class="actv-list">
 
           <p class="list-text">{{todolist}}</p>
 
           <div class="actv-side">
-            <p class="list-time">3:30pm</p>
+            <p class="list-time">{{generateTime updatedAt 'LT'}}</p>
             <input class="btn btn-primary btn-xs" type="button" value="Edit">
             <input class="btn btn-danger btn-xs pull-right" type="button" value="Delete">
           </div>
