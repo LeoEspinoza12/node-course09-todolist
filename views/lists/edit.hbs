@@ -9,7 +9,9 @@
           </div>
           <div class="done-list-input">
             <p class="finished-time">{{generateTime updatedAt 'LT'}}</p>
-            <input class="btn btn-primary btn-xs pull-right" type="button" value="Change">
+            <form action="/lists/change/{{_id}}" onsubmit="sampleThis()" method="POST">
+              <button class="btn btn-primary btn-xs pull-right" type="submit">Change</button>
+            </form>
           </div>
         </li>
         {{/each}}
@@ -26,7 +28,7 @@
         {{#each edit}}
           <li class="list-group-item list-group-item-success actv-list1 list-edit">
             <div class="actv-list-edit">
-              <form action="/edit" method="post">
+              <form action="/lists/edit" method="post">
                 <div class="form-group">
                   <input type="hidden" value="{{_id}}" name="_id">
                   <textarea type="text" class="list-text" autofocus="autofocus" name="todolist">{{todolist}}</textarea>
@@ -53,7 +55,7 @@
               <div class="actv-side">
                 <p class="list-time">{{generateTime updatedAt 'LT'}}</p>
                 <a href="/edit{{_id}}" class="btn btn-primary btn-xs" type="button">Edit</a>
-                <form action="/{{_id}}" method="post">
+                <form action="/lists/{{_id}}" method="post">
                   <button type="submit" class="btn btn-danger btn-xs pull-right">Delete</button>
                 </form>
               </div>
