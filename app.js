@@ -1,16 +1,16 @@
-// var createError = require('http-errors');
-// var express = require('express');
-// var path = require('path');
-// var cookieParser = require('cookie-parser');
-// var logger = require('morgan');
-// const hbs = require('express-handlebars')
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+const hbs = require('express-handlebars')
 
-// const session = require('express-session')
-// const FileStore = require('session-file-store')(session)
+const session = require('express-session')
+const FileStore = require('session-file-store')(session)
 
 
-// var listsRouter = require('./routes/lists');
-// var usersRouter = require('./routes/users');
+var listsRouter = require('./routes/lists');
+var usersRouter = require('./routes/users');
 
 
 const mongoose = require('mongoose');
