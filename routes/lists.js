@@ -73,9 +73,10 @@ listsRouter.route('/')
 
 /////////////////////////////////////////////////////////
 listsRouter.get('/edit:_id', (req, res, next) => {
-     var todos = [];
-     var doneList = [];
-    var editlist = [];
+  var todos = [];
+    var doneList = [];
+      var editlist = [];
+  
   ToDoList.find({})
     .then((lists) => {
       lists.forEach((list) => {
@@ -128,13 +129,40 @@ listsRouter.post('/:id', (req, res, next) => {
       console.log(`response after delete: ${resp}`);
         res.statusCode = 200;
           res.setHeader('Content-Type', 'text/html');
-            res.redirect('/')
+            res.redirect('/lists')
     }, (err) => next(err))
       .catch((err) => next(err))
 })
 
 
-
+listsRouter.post('/change/:id', (req, res, next) => {
+  var todos = [];
+    var doneList = [];
+      var editlist = [];
+  
+  ToDoList.findById(req.params.id)
+    .then((list) => {
+      list.status = 'pending';
+      list.save()
+        .then((newlist) => {
+          ToDoList.find({})
+            .then((lists) => {
+              lists.forEach((list) => {
+                if (list._id == req.params.id) {
+                  editlist.push(list)
+                } else if (list.status == 'done'){
+                  doneList.push(list)
+                } else {
+                  todos.push(list)
+                }
+              })
+          res.statusCode = 200;
+            res.setHeader('Content-Type', 'text/html')
+              res.render('lists/edit', {lists: todos, done: doneList, edit: editlist})
+        })
+      })
+    })
+})
 
 
 module.exports = listsRouter;

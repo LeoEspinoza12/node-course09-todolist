@@ -65,6 +65,13 @@ button {
   box-shadow: 4px 4px 3px gray
 }
 
+.text-fix {
+  color: #ff0b0b;
+  line-height: 18px;
+  height: 18px;
+}
+
+/* list parts */
 .parts,
 .all-list {
   width: 100%;

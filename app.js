@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const hbs = require('express-handlebars')
 
+const session = require('express-session')
+const FileStore = require('session-file-store')(session)
 
 
 var listsRouter = require('./routes/lists');
@@ -30,8 +32,56 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', listsRouter);
-app.use('/users', usersRouter);
+
+// session id
+app.use(session({
+  name: 'session-id',
+  secret: '12345-67890',
+  saveUninitialized: false,
+  resave: false,
+  store: new FileStore()
+}))
+
+
+app.use('/', usersRouter);
+
+
+
+
+function auth(req, res, next) {
+  console.log(`Response Headers: `, req.headers, ` \n\n `);
+
+
+  if (!req.session.user) {
+    res.statusCode = 403;
+    res.render('user/login', {
+      'text': 'to do list',
+      'nameAlert': 'You have to login first'
+    })
+  } else {
+    if(req.session.user = 'authenticated') {
+      next()
+    } else {
+      res.statusCode = 403;
+      res.render('user/login', {
+        'text': 'to do list',
+        'nameAlert': 'You have to login first'
+      })
+    }
+  }
+}
+
+app.use(auth)
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+app.use('/lists', listsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
